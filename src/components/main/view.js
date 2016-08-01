@@ -131,11 +131,11 @@ function renderRightToolbar (state, {bom}) {
 
 function renderTopToolbar (state) {
   const progressBar = renderProgressBar({progress: state.operationsInProgress * 100})
-  return h('section#topToolBar', [h('section.notifications', [state.notifications]), progressBar ])
+  return h('section#topToolBar', [ h('section.notifications', [state.notifications]), progressBar ])
 }
 
 function renderUiElements (uiElements) {
-  const {state, settings, fsToggler, bom, gl, entityInfos, help, featureTour} = uiElements
+  const {state, settings, fsToggler, bom, gl, entityInfos, help} = uiElements
 
   const widgetsMapping = {
     //'comments': comments,
@@ -152,7 +152,6 @@ function renderUiElements (uiElements) {
   const rightToolbar = renderRightToolbar(state, uiElements)
   const bottomToolBar = h('section#bottomToolBar', [settings, help, fsToggler])
   const topToolbar = renderTopToolbar(state)
-  const overlayContainer = h('div#overlayContainer')
 
   return h('div.jam', flatten([
     gl,
@@ -160,8 +159,7 @@ function renderUiElements (uiElements) {
     leftToolbar,
     rightToolbar,
     topToolbar,
-    bottomToolBar,
-    overlayContainer
+    bottomToolBar
   ]))
 }
 
@@ -176,9 +174,8 @@ function widgetNamesByToolSet (toolset) {
 }
 
 export default function view(state$, settings$, fsToggler$, bom$
-  , gl$, entityInfos$, comment$, help$, featureTour$) {
+  , gl$, entityInfos$, comment$, help$) {
 
-  return combineLatestObj({state$, settings$, fsToggler$, bom$
-    , gl$, entityInfos$, comment$, help$, featureTour$})
+  return combineLatestObj({state$, settings$, fsToggler$, bom$, gl$, entityInfos$, comment$, help$})
     .map(renderUiElements)
 }
