@@ -105,6 +105,7 @@ export default function intent (DOM) {
     .withLatestFrom(newEntryValues$, (_, data) => data)
     .filter(data => data.name !== '')
     .map(function (data) { // inject extra data
+      document.querySelector('.adderTextInput').value = '' // clears the inputfield value so it uses the default placeholder again
       return mergeData({}, data, {id: generateUUID()})
     })
     .tap(e=>console.log("raw addEntry data",e))
